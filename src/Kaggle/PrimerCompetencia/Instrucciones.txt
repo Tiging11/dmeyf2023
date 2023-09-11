@@ -1,0 +1,8 @@
+INSTRUCCIONES
+
+Se usaron 3 scripts para la entrega final en Kaggle:
+
+- el script "Grid_search", donde se realiza la búsqueda de los mejores hiperparámetros (demoró alrededor de 3 horas en correr).
+- el script "Feature_engineering", donde se explica y se aplican las modificaciones realizadas al dataset original.
+- el script "Codigo_ppal", donde se levanta el dataset mejorado con feature engineering y se aplica el árbol con los hiperparámetros
+encontrados con grid search. Este script imprime el .csv final para subir a Kaggle.
