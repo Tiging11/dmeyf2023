@@ -1,0 +1,89 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+# Cargo librerías:
+require("data.table")
+library(tidyverse)
+library(lubridate)
+```
+
+
+```{r}
+# Aqui se debe poner la carpeta de la materia de SU computadora local
+setwd("C:/Users/tgian/DMEyF") # Establezco el Working Directory
+
+# Cargo el datase:
+dataset <- fread("./datasets/competencia_02_lag_vars_clean_2.csv.gz")
+
+dataset_original <- fread("./datasets/competencia_02.csv")
+# Extraigo nombres de columnas (del dataset original, para evitar hacer lag de columnas lags):
+column_names <- names(dataset_original)
+# COlumnas que no me interesa hacerles lag:
+columns_to_remove <- c("mes", "mes+1", "mes+2","numero_de_cliente", "foto_mes", "active_quarter", "cliente_vip", "internet", "cliente_edad", "cliente_antiguedad", "tmobile_app", "cmobile_app_trx", "clase_ternaria")
+# Columnas para hacer lag:
+columns_to_lag <- setdiff(column_names, columns_to_remove)
+
+columns_to_lag
+table(dataset$clase_ternaria)
+
+dataset
+```
+
+```{r}
+# Con este código genero lag para las columnas - hago lag1 y lag2:
+setDT(dataset)
+for (col_name in columns_to_lag) {
+  dataset[, (paste0(col_name, "_lagged_1")) := shift(.SD[[col_name]], 1, type = 'lag'), by = numero_de_cliente]
+}
+
+for (col_name in columns_to_lag) {
+  dataset[, (paste0(col_name, "_lagged_2")) := shift(.SD[[col_name]], 2, type = 'lag'), by = numero_de_cliente]
+}
+
+
+dataset
+```
+
+```{r}
+# Con este código genero lag para las columnas - hago lag3 y lag4:
+setDT(dataset)
+for (col_name in columns_to_lag) {
+  dataset[, (paste0(col_name, "_lagged_3")) := shift(.SD[[col_name]], 3, type = 'lag'), by = numero_de_cliente]
+}
+
+for (col_name in columns_to_lag) {
+  dataset[, (paste0(col_name, "_lagged_4")) := shift(.SD[[col_name]], 4, type = 'lag'), by = numero_de_cliente]
+}
+
+dataset
+```
+
+
+```{r}
+# Con este código genero lag para las columnas - hago lag5 y lag6:
+setDT(dataset)
+for (col_name in columns_to_lag) {
+  dataset[, (paste0(col_name, "_lagged_5")) := shift(.SD[[col_name]], 5, type = 'lag'), by = numero_de_cliente]
+}
+
+for (col_name in columns_to_lag) {
+  dataset[, (paste0(col_name, "_lagged_6")) := shift(.SD[[col_name]], 6, type = 'lag'), by = numero_de_cliente]
+}
+
+dataset
+```
+
+
+```{r}
+# Descargo el dataset nuevo:
+write.csv(dataset, "competencia_02_lag_vars_clean_3", row.names = FALSE)
+```
+
+
+
+
+
+

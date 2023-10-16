@@ -1,0 +1,7 @@
+INSTRUCCIONES
+
+Se usaron 3 scripts para la entrega final en Kaggle:
+
+- el script "Creacion_target_kaggle_2.ipynb" se usó para crear el target usando SQL.
+- el script "Feature_eng_competencia_02_nuevo_lag_4.rmd" es donde se realizó el feature engineering y donde agregué los lags de las variables (lags de 1, 2, 3 y 4 meses).
+- el script "exp_HT8230_lag_vars_HT8230_lag_vars.RDATA" contiene los hiperparámetros resultado de realizar optimización bayesiana sobre el mejor dataset armado.
